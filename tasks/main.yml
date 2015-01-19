@@ -1,0 +1,13 @@
+- file: path={{ aws_cli_home }} state=directory mode=777
+
+- get_url: url=https://s3.amazonaws.com/aws-cli/awscli-bundle.zip dest={{ aws_cli_home }}/awscli-bundle.zip
+
+- shell: unzip awscli-bundle.zip
+  args:
+    chdir: "{{ aws_cli_home }}"
+    creates: /usr/local/bin/aws
+
+- shell: ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+  args:
+    chdir: "{{ aws_cli_home }}"
+    creates: /usr/local/bin/aws
